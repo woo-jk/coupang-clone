@@ -1,16 +1,6 @@
 import api from "./api";
 import cookies from "js-cookie";
-
-type SignupAgreements = {
-  privacy: boolean;
-  ad:
-    | {
-        email: boolean;
-        sms: boolean;
-        app: boolean;
-      }
-    | false;
-};
+import { ISignUpData, ILoginData } from "../types/service";
 
 class AuthService {
   setAccessToken(accessToken: string) {
@@ -33,28 +23,16 @@ class AuthService {
   }
 
   /** 새로운 계정을 생성하고 토큰을 발급받습니다. */
-  async signup(
-    email: string,
-    password: string,
-    name: string,
-    phoneNumber: string,
-    agreements: SignupAgreements
-  ) {
-    const { data } = await api.post("/auth/signup", {
-      email,
-      password,
-      name,
-      phoneNumber,
-      agreements,
-    });
+  async signup(signUpData: ISignUpData) {
+    const { data } = await api.post("/auth/signup", signUpData);
 
     this.setAccessToken(data.access);
     this.setRefreshToken(data.refresh);
   }
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
-  async login(email: string, password: string) {
-    const { data } = await api.post("/auth/login", { email, password });
+  async login(loginData: ILoginData) {
+    const { data } = await api.post("/auth/login", loginData);
 
     this.setAccessToken(data.access);
     this.setRefreshToken(data.refresh);
