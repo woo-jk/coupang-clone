@@ -3,13 +3,6 @@ import cookies from "js-cookie";
 import { ISignUpData, ILoginData } from "../types/service";
 
 class AuthService extends Service {
-  setAccessToken(accessToken: string) {
-    cookies.set("accessToken", accessToken, { expires: 1 });
-  }
-  setRefreshToken(refreshToken: string) {
-    cookies.set("refreshToken", refreshToken, { expires: 7 });
-  }
-
   /** refreshToken을 이용해 새로운 토큰을 발급받습니다. */
   async refresh() {
     const refreshToken = cookies.get("refreshToken");
