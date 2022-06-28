@@ -1,20 +1,18 @@
 import Service from "./service";
 import cookies from "js-cookie";
-
+import { getMyData, getReadData } from "../api";
 class UserService extends Service {
   async me() {
     const accessToken = cookies.get("accessToken");
     if (!accessToken) return;
 
-    const api = api();
-    api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-    const { data } = await api.get("/users/me");
+    const { data } = await getMyData(accessToken);
 
     return data;
   }
 
   async read(id: number) {
-    const { data } = await api.get("/users/" + id);
+    const { data } = await getReadData(id);
 
     return data;
   }

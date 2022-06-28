@@ -8,11 +8,6 @@ class Service {
   setRefreshToken(refreshToken: string) {
     cookies.set("refreshToken", refreshToken, { expires: 7 });
   }
-  apiCreate() {
-    return axios.create({
-      baseURL: process.env.NEXT_PUBLIC_API_HOST,
-    });
-  }
 }
 
 export default Service;
