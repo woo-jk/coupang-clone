@@ -1,5 +1,6 @@
 import Service from "./service";
 import cookies from "js-cookie";
+import { refresh, signUp, login } from "../api";
 import { ISignUpData, ILoginData } from "../types/service";
 
 class AuthService extends Service {
@@ -8,9 +9,7 @@ class AuthService extends Service {
     const refreshToken = cookies.get("refreshToken");
     if (!refreshToken) return;
 
-    const api = this.apiCreate();
-    api.defaults.headers.common["Authorization"] = `Bearer ${refreshToken}`;
-    const { data } = await api.post("/auth/refresh", null);
+    const { data } = await refresh(refreshToken);
 
     this.setAccessToken(data.access);
     this.setRefreshToken(data.refresh);
@@ -18,8 +17,7 @@ class AuthService extends Service {
 
   /** 새로운 계정을 생성하고 토큰을 발급받습니다. */
   async signup(signUpData: ISignUpData) {
-    const api = this.apiCreate();
-    const { data } = await api.post("/auth/signup", signUpData);
+    const { data } = await signUp(signUpData);
 
     this.setAccessToken(data.access);
     this.setRefreshToken(data.refresh);
@@ -27,8 +25,7 @@ class AuthService extends Service {
 
   /** 이미 생성된 계정의 토큰을 발급받습니다. */
   async login(loginData: ILoginData) {
-    const api = this.apiCreate();
-    const { data } = await api.post("/auth/login", loginData);
+    const { data } = await login(loginData);
 
     this.setAccessToken(data.access);
     this.setRefreshToken(data.refresh);
