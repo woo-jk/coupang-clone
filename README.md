@@ -8,4 +8,6 @@
 
 주어진 Interface에 맞게 Class 및 Function들을 만들어보며 지속가능한 모듈 설계와 프론트엔드에서의 객체지향에 대해서 고민해보아요.
 
+
+## 회고록
 1회차 회고록: https://velog.io/@wjk6044/Numble-Challenge-%EC%BF%A0%ED%8C%A1-%ED%81%B4%EB%A1%A0-1%ED%9A%8C%EC%B0%A8
