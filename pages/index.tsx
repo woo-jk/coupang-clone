@@ -2,13 +2,14 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useQuery } from "react-query";
+import { useRequest } from "../src/hooks";
 
 import { UserService } from "../src/services";
 
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
-  const { data: me } = useQuery("me", UserService.me, {
+  const { data: me } = useRequest("me", UserService.me, {
     refetchInterval: 500,
   });
 
